@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Bloc de Notas Profesional con Spring Boot y JavaFX
 
 Esta es una aplicación de escritorio moderna y profesional construida con **JavaFX 17** y gestionada por **Spring Boot 3.x** utilizando **Maven**.
@@ -67,3 +68,7 @@ mvn spring-boot:run
 ## Atajos de Teclado del Editor
 - **Ctrl + S**: Abre el diálogo nativo para guardar el archivo actual.
 - **Ctrl + Q**: Cierra y sale limpiamente de la aplicación.
+=======
+# Bloc-de-Notas-Personal
+Block de notas de uso personal
+>>>>>>> 0c7f32f9afeb0a394df1f7d1984cf56238ff995a
