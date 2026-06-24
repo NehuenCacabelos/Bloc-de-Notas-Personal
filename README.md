@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Bloc de Notas Profesional con Spring Boot y JavaFX
 
 Esta es una aplicación de escritorio moderna y profesional construida con **JavaFX 17** y gestionada por **Spring Boot 3.x** utilizando **Maven**.
