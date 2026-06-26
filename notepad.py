@@ -50,11 +50,6 @@ def init_project_root():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS session (
-            last_file TEXT
-        )
-    """)
-    cursor.execute("""
         CREATE TABLE IF NOT EXISTS settings (
             key TEXT PRIMARY KEY,
             value TEXT
@@ -85,24 +80,7 @@ def set_setting(key, value):
     conn.commit()
     conn.close()
 
-def get_last_session_file():
-    """Recupera la ruta del último archivo guardado/abierto en la sesión anterior."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT last_file FROM session")
-    row = cursor.fetchone()
-    conn.close()
-    return row[0] if row else None
 
-def update_session_file(file_path):
-    """Registra la ruta del último archivo de sesión."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM session")
-    if file_path:
-        cursor.execute("INSERT INTO session (last_file) VALUES (?)", (os.path.abspath(file_path),))
-    conn.commit()
-    conn.close()
 
 # ----------------- Función Principal de Ejecución -----------------
 
@@ -361,7 +339,6 @@ def main():
             current_file = file_path
             set_filename_in_entry(file_path)
             update_title()
-            update_session_file(file_path)
             
             # Marcar archivo como guardado sin modificaciones pendientes
             text_area.edit_modified(False)
@@ -392,7 +369,6 @@ def main():
         set_filename_in_entry(None)
         update_title()
         update_cursor_pos()
-        update_session_file(None)
         
         # Limpiar banderas de modificación
         text_area.edit_modified(False)
@@ -414,7 +390,6 @@ def main():
                 set_filename_in_entry(file_path)
                 update_title()
                 update_cursor_pos()
-                update_session_file(file_path)
                 
                 # Limpiar banderas de modificación
                 text_area.edit_modified(False)
@@ -627,24 +602,9 @@ def main():
 
     help_menu.add_command(command=show_about)
 
-    # Cargar el último archivo de sesión abierta si existe y es válido
-    last_session_path = get_last_session_file()
-    if last_session_path and os.path.exists(last_session_path):
-        try:
-            with open(last_session_path, "r", encoding="utf-8") as f:
-                content = f.read()
-            text_area.insert("1.0", content)
-            current_file = os.path.abspath(last_session_path)
-            set_filename_in_entry(current_file)
-            update_title()
-            update_cursor_pos()
-        except Exception:
-            current_file = None
-            set_filename_in_entry(None)
-    else:
-        # Abrir archivo nuevo en blanco por defecto al arrancar
-        current_file = None
-        set_filename_in_entry(None)
+    # Abrir archivo nuevo en blanco por defecto al arrancar
+    current_file = None
+    set_filename_in_entry(None)
 
     # Restablecer estado de modificación inicial (ignora las inserciones del arranque)
     text_area.edit_modified(False)
