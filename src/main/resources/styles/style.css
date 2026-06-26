@@ -7,8 +7,8 @@
 
 /* Barra de Menú Superior */
 .menu-bar {
-    -fx-background-color: #1b212f; /* Fondo de la barra de menú */
-    -fx-border-color: #273145;
+    -fx-background-color: #131720; /* Fondo de la barra de menú */
+    -fx-border-color: #131720;
     -fx-border-width: 0 0 1 0;
     -fx-padding: 0 5 0 5;
 }
@@ -32,7 +32,7 @@
 
 /* Submenús / Menu Items */
 .context-menu {
-    -fx-background-color: #1b212f;
+    -fx-background-color: #131720;
     -fx-border-color: #273145;
     -fx-border-width: 1;
     -fx-border-radius: 4;

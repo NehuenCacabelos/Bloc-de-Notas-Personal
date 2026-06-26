@@ -159,7 +159,7 @@ def main():
     top_bar = tk.Frame(root, bg="#131720", height=38)
     top_bar.pack(side=tk.TOP, fill=tk.X)
     
-    top_border = tk.Frame(top_bar, bg="#273145", height=1)
+    top_border = tk.Frame(top_bar, bg="#131720", height=1)
     top_border.pack(side=tk.BOTTOM, fill=tk.X)
     
     file_lbl = tk.Label(top_bar, text=" FILE_NAME >", bg="#131720", fg="#4a7bb0", font=("Consolas", 10, "bold"))
@@ -167,7 +167,7 @@ def main():
     
     filename_entry = tk.Entry(
         top_bar,
-        bg="#1b212f",
+        bg="#131720",
         fg="#e2e8f0",
         insertbackground="#e2e8f0",
         bd=0,
@@ -314,15 +314,17 @@ def main():
         update_font()
         return "break"
 
-    def save_file(event=None):
+    def save_file(event=None, force_path=None):
         global current_file, is_modified
         path_input = filename_entry.get().strip()
-        if not path_input or path_input in ("Sin nombre", "Unnamed", "Sin título", "Untitled"):
+        if not force_path and (not path_input or path_input in ("Sin nombre", "Unnamed", "Sin título", "Untitled")):
             save_file_as()
             return
             
-        # Determinar ruta final basada en el directorio del archivo previo o la carpeta por defecto
-        if current_file:
+        # Determinar ruta final basada en el parámetro force_path, el directorio del archivo previo o la carpeta por defecto
+        if force_path:
+            file_path = force_path
+        elif current_file:
             directory = os.path.dirname(current_file)
             file_path = os.path.abspath(os.path.join(directory, path_input))
         else:
@@ -355,10 +357,20 @@ def main():
         path_input = filename_entry.get().strip()
         sugg_name = path_input if path_input not in ("Sin nombre", "Unnamed", "Sin título", "Untitled") else "notas.txt"
         
-        file_path = filedialog.asksaveasfilename(title=title, filetypes=file_types, defaultextension=".txt", initialfile=sugg_name)
+        if current_file:
+            init_dir = os.path.dirname(current_file)
+        else:
+            init_dir = get_setting("default_save_dir", os.path.abspath("ProjectRoot/docs"))
+            
+        file_path = filedialog.asksaveasfilename(
+            title=title, 
+            filetypes=file_types, 
+            defaultextension=".txt", 
+            initialfile=sugg_name,
+            initialdir=init_dir
+        )
         if file_path:
-            set_filename_in_entry(file_path)
-            save_file()
+            save_file(force_path=file_path)
 
     def new_file(event=None):
         global current_file, is_modified
@@ -378,7 +390,17 @@ def main():
         global current_file, is_modified
         title = "Abrir archivo" if is_spanish else "Open file"
         file_types = [("Archivos compatibles (*.txt;*.md;*.py)", "*.txt;*.md;*.py"), ("Todos los archivos", "*.*")]
-        file_path = filedialog.askopenfilename(title=title, filetypes=file_types)
+        
+        if current_file:
+            init_dir = os.path.dirname(current_file)
+        else:
+            init_dir = get_setting("default_save_dir", os.path.abspath("ProjectRoot/docs"))
+            
+        file_path = filedialog.askopenfilename(
+            title=title, 
+            filetypes=file_types,
+            initialdir=init_dir
+        )
         if file_path:
             try:
                 text_area.config(state=tk.NORMAL)
@@ -462,7 +484,7 @@ def main():
         messagebox.showinfo(title, message)
 
     # 6. Creación y actualización de la Barra de Menú
-    menu_bar = tk.Menu(root, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
+    menu_bar = tk.Menu(root, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
     root.config(menu=menu_bar)
 
     wrap_text = tk.BooleanVar(value=True)
@@ -470,13 +492,13 @@ def main():
     show_status = tk.BooleanVar(value=True)
     lang_var = tk.StringVar(value="es")
 
-    file_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    edit_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    format_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    view_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    zoom_menu = tk.Menu(view_menu, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    lang_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
-    help_menu = tk.Menu(menu_bar, tearoff=0, bg="#1b212f", fg="#e2e8f0", activebackground="#4a7bb0", activeforeground="#e2e8f0", bd=0)
+    file_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    edit_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    format_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    view_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    zoom_menu = tk.Menu(view_menu, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    lang_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
+    help_menu = tk.Menu(menu_bar, tearoff=0, bg="#131720", fg="#e2e8f0", activebackground="#273145", activeforeground="#e2e8f0", bd=0)
 
     zoom_menu.add_command(accelerator="Ctrl+=", command=zoom_in)
     zoom_menu.add_command(accelerator="Ctrl+-", command=zoom_out)
