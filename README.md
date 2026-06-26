@@ -10,11 +10,10 @@ Este repositorio contiene dos implementaciones:
 
 ## 🐍 Implementación en Python (Tkinter)
 
-Un bloc de notas minimalista y veloz con modo oscuro, guardado de archivos personalizado y carga automática de la última sesión.
+Un bloc de notas minimalista y veloz con modo oscuro, guardado de archivos personalizado.
 
 ### Características Principales
 - **Barra Superior de Nombre**: Campo de entrada de nombre con borrado automático del marcador de posición ("Sin nombre") y legibilidad mejorada.
-- **Restaurar Sesión Automática**: Recuerda y reabre automáticamente el último archivo que estabas editando.
 - **Icono Personalizado**: Incluye un icono premium con estética cyberpunk y texturas translúcidas.
 - **Ejecutable Compilado**: Versión `.exe` independiente precompilada y disponible en la carpeta `dist/`.
 
