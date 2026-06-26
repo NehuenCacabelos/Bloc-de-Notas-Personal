@@ -1,73 +1,55 @@
-# Bloc de Notas Profesional con Spring Boot y JavaFX
+# Dark-Mode Notepad Suite (Bloc de Notas)
 
-Esta es una aplicación de escritorio moderna y profesional construida con **JavaFX 17** y gestionada por **Spring Boot 3.x** utilizando **Maven**.
+A dual-implementation of a modern, premium dark-mode notepad suite, featuring clean aesthetics, responsive interfaces, and custom styling.
 
-La aplicación ofrece una interfaz oscura premium (estilo Catppuccin Mocha) con opciones avanzadas de formateo y visualización, optimizada para el rendimiento y la facilidad de uso.
-
-## Características Principales
-
-- **Editor de Texto Responsivo**: Un `TextArea` que se expande automáticamente y aprovecha todo el espacio disponible al redimensionar la ventana.
-- **Formato Global Dinámico**:
-  - **Negrita (B)**: Alterna de forma interactiva el peso de la fuente del editor.
-  - **Selector de Color**: Cambia el color del texto mediante un selector nativo.
-  - **Zoom (+ / - / 100%)**: Aumenta o disminuye el tamaño de la fuente dinámicamente, con un botón rápido para restablecer al tamaño por defecto (100%).
-- **Barra de Estado Profesional**: Muestra información en tiempo real sobre la cantidad de caracteres, el número de palabras y el porcentaje de zoom actual.
-- **Guardado Nativo**: Diálogo `FileChooser` nativo del sistema operativo para guardar el contenido del bloc de notas en un archivo local `.txt` codificado en UTF-8.
-- **Inyección de Dependencias**: Ciclo de vida y componentes gestionados en su totalidad por Spring Framework.
+This repository contains two implementations:
+1. **Python version (`notepad.py`)**: A lightweight desktop app built with Tkinter, featuring a Windows 11-style top bar, session auto-saving, and a standalone precompiled executable with a custom icon.
+2. **Java version (`src/main/`)**: A robust desktop application managed by **Spring Boot 3.x** and built using **JavaFX 17** and **Maven**.
 
 ---
 
-## Requisitos Previos
+## 🐍 Python Implementation (Tkinter)
 
-- **Java Development Kit (JDK)** versión 17 o superior (Java 26 es compatible y testeado).
-- Maven no requiere instalación global, ya que el proyecto incluye un script envoltura (`mvnw.cmd`) configurado para usar el motor de Maven disponible localmente.
+A fast, standalone minimalist notepad with dark mode, custom file naming, and auto-session loading.
 
----
+### Key Features
+- **File Naming Top Bar**: Name entry field with auto-clear placeholder ("Sin nombre") and legibility enhancements.
+- **Auto-Session Restore**: Remembers and automatically reopens your last edited file.
+- **Custom Icon**: Bundled with a premium neon-themed glassmorphism icon.
+- **Built Executable**: A standalone `.exe` version is precompiled in the `dist/` directory.
 
-## Estructura del Proyecto
-
-```text
-├── pom.xml                     # Configuración de dependencias Maven
-├── mvnw.cmd                    # Envoltura de Maven local
-├── README.md                   # Instrucciones del proyecto
-└── src
-    └── main
-        ├── java
-        │   └── com
-        │       └── notepad
-        │           ├── SpringBootApp.java          # Entrada principal (Spring Boot)
-        │           ├── NotepadFXApplication.java   # Ciclo de vida de JavaFX
-        │           ├── event
-        │           │   └── StageReadyEvent.java    # Evento de ventana lista
-        │           ├── init
-        │           │   └── PrimaryStageInitializer.java # Construcción del Stage principal
-        │           └── ui
-        │               └── NotepadController.java  # Lógica de componentes e interfaz
-        └── resources
-            └── styles
-                └── style.css                       # Hoja de estilos CSS oscuros
+### Quick Start
+To run the python version:
+```powershell
+py notepad.py
 ```
+Or simply double-click the standalone executable located in:
+`dist/notepad.exe`
 
 ---
 
-## Instrucciones de Ejecución
+## ☕ Java Implementation (Spring Boot & JavaFX)
 
-Para iniciar la aplicación en tu entorno local, abre una terminal (PowerShell o CMD) en el directorio raíz del proyecto y ejecuta el siguiente comando:
+A professional desktop text editor utilizing Spring's Dependency Injection and JavaFX styling.
 
+### Key Features
+- **Spring Lifecycle Management**: App configuration and UI controllers are fully managed components in Spring context.
+- **Rich Status Bar**: Displays current zoom level, cursor line/column, encoding, and CRLF options in real-time.
+- **Dynamic Zoom & Style**: Global text color picker, font formatting (bold/regular), and font-zoom utilities (+ / - / 100%).
+
+### Quick Start
+To build and run the Java version using the local Maven wrapper:
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-Si estás en un sistema Unix/Linux/macOS y tienes Maven instalado globalmente, puedes usar:
+---
 
-```bash
-mvn spring-boot:run
-```
-
-## Atajos de Teclado del Editor
-- **Ctrl + S**: Abre el diálogo nativo para guardar el archivo actual.
-- **Ctrl + Q**: Cierra y sale limpiamente de la aplicación.
-=======
-# Bloc-de-Notas-Personal
-Block de notas de uso personal
->>>>>>> 0c7f32f9afeb0a394df1f7d1984cf56238ff995a
+## ⌨️ General Keyboard Shortcuts
+- **Ctrl + N**: New File
+- **Ctrl + O**: Open File
+- **Ctrl + S**: Save File
+- **Ctrl + Shift + S**: Save As
+- **Ctrl + =** / **Ctrl + -**: Zoom In / Zoom Out
+- **Ctrl + 0**: Reset zoom to 100%
+- **Ctrl + Q**: Exit application

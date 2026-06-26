@@ -1,5 +1,0 @@
-com\notepad\event\StageReadyEvent.class
-com\notepad\NotepadFXApplication.class
-com\notepad\SpringBootApp.class
-com\notepad\init\PrimaryStageInitializer.class
-com\notepad\ui\NotepadController.class

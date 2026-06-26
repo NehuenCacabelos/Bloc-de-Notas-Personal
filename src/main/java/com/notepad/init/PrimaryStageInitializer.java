@@ -24,7 +24,7 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
         notepadController.setPrimaryStage(stage);
         
         // Crear la escena principal a partir del root del controlador
-        Scene scene = new Scene(notepadController.getRoot(), 900, 650);
+        Scene scene = new Scene(notepadController.getRoot(), 800, 560);
         
         // Cargar los estilos CSS
         scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());

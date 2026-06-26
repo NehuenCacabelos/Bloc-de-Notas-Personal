@@ -361,7 +361,7 @@ public class NotepadController {
 
     private void updateTitle() {
         if (primaryStage != null) {
-            String fileName = (currentFile != null) ? currentFile.getName() : (isSpanish ? "Sin título" : "Untitled");
+            String fileName = (currentFile != null) ? currentFile.getName() : (isSpanish ? "Sin nombre" : "Unnamed");
             primaryStage.setTitle(fileName + " - " + (isSpanish ? "Bloc de Notas" : "Notepad"));
         }
     }
